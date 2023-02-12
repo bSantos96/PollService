@@ -33,8 +33,18 @@ namespace MicroService.Poll.WebApi.Mapping
                 .ForMember(dest => dest.CreationDateUtc, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
                 .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => MapChoicesToAnswers(src.Choices)));
 
+            this.CreateMap<UpdateQuestionModel, Question>()
+                .ForMember(dest => dest.QuestionText, opt => opt.MapFrom(src => src.Question))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl.ToString()))
+                .ForMember(dest => dest.ThumbUrl, opt => opt.MapFrom(src => src.ThumbUrl.ToString()))
+                .ForMember(dest => dest.CreationDateUtc, opt => opt.MapFrom(src => DateTimeOffset.UtcNow))
+                .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Choices));
+
             this.CreateMap<Answer, QuestionChoiceModel>()
                 .ForMember(dest => dest.Choice, opt => opt.MapFrom(src => src.AnswerText));
+
+            this.CreateMap<QuestionChoiceModel, Answer>()
+                .ForMember(dest => dest.AnswerText, opt => opt.MapFrom(src => src.Choice));
         }
 
         private static ICollection<Answer> MapChoicesToAnswers(IEnumerable<string> choices)
