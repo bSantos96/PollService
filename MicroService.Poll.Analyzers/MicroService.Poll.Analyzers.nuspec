@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata minClientVersion="3.3">
+    <id>MicroService.Poll.Analyzers</id>
+    <version>1.0.0</version>
+    <description>
+      Polls MicroService Analyzers configuration.
+    </description>
+    <authors>Bruno Santos</authors>
+    <dependencies>
+      <dependency id="Microsoft.CodeAnalysis.FxCopAnalyzers" version="[3.3.2]" />
+      <dependency id="StyleCop.Analyzers" version="[1.1.118]" />
+    </dependencies>
+    <developmentDependency>true</developmentDependency>
+  </metadata>
+  <files>
+    <file src="src\**" target="" />
+  </files>
+</package>
