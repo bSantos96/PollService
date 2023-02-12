@@ -33,6 +33,7 @@ namespace MicroService.Poll.WebApi
 
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
+                builder.Services.AddHealthChecks();
             }
 
             var app = builder.Build();
@@ -48,6 +49,7 @@ namespace MicroService.Poll.WebApi
 
                 app.UseHttpsRedirection();
                 app.UseAuthorization();
+                app.MapCustomHealthCheck();
                 app.MapControllers();
             }
 
