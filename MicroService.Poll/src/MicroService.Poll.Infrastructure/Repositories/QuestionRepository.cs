@@ -62,5 +62,17 @@ namespace MicroService.Poll.Infrastructure.Repositories
 
             return this.mapper.Map<IReadOnlyList<QuestionModel>>(filteredQuestions);
         }
+
+        /// <inheritdoc/>
+        public async Task<QuestionModel> GetQuestionById(int id, CancellationToken ct)
+        {
+            var questionById = await this.context
+                .Set<Question>()
+                .Include(q => q.Answers)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(q => q.QuestionId == id, ct);
+
+            return this.mapper.Map<QuestionModel>(questionById);
+        }
     }
 }

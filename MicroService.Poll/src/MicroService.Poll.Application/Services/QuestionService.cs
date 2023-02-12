@@ -7,6 +7,7 @@ namespace MicroService.Poll.Application.Services
     using AutoMapper;
     using Guards;
     using MicroService.Poll.Application.Services.Interfaces;
+    using MicroService.Poll.Domain.Entities;
     using MicroService.Poll.Domain.Repositories;
 
     using ApplicationModels = Models;
@@ -40,6 +41,12 @@ namespace MicroService.Poll.Application.Services
             }
 
             return this.questionRepository.GetFilteredQuestions(this.mapper.Map<DomainEntities.GetFilteredQuestionModel>(model), ct);
+        }
+
+        /// <inheritdoc/>
+        public Task<QuestionModel> GetQuestionById(int id, CancellationToken ct)
+        {
+            return this.questionRepository.GetQuestionById(id, ct);
         }
     }
 }
