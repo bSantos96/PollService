@@ -19,6 +19,9 @@ namespace MicroService.Poll.Infrastructure.Context.Configurations
             Guard.ArgumentNotNull(builder, nameof(builder));
 
             builder
+                .ToTable(tb => tb.HasTrigger("TR_Answer_LastUpdateDateUtc"));
+
+            builder
                 .Property(q => q.AnswerText)
                 .HasColumnName("Answer");
 

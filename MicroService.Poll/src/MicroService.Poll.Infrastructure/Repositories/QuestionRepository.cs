@@ -74,5 +74,52 @@ namespace MicroService.Poll.Infrastructure.Repositories
 
             return this.mapper.Map<QuestionModel>(questionById);
         }
+
+        /// <inheritdoc/>
+        public async Task<QuestionModel> SetQuestion(SetQuestionModel questionToInsert, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(questionToInsert, nameof(questionToInsert));
+
+            using (var transaction = await this.context.Database.BeginTransactionAsync(ct))
+            {
+                var insertedQuestion = this.mapper.Map<Question>(questionToInsert);
+
+                this.context.Set<Question>().Add(insertedQuestion);
+                await this.context.SaveChangesAsync(ct);
+
+                await transaction.CommitAsync(ct);
+
+                return this.mapper.Map<QuestionModel>(insertedQuestion);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<QuestionModel> UpdateQuestion(int questionId, UpdateQuestionModel questionToUpdate, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(questionToUpdate, nameof(questionToUpdate));
+
+            using (var transaction = await this.context.Database.BeginTransactionAsync(ct))
+            {
+                var updatedQuestion = await this.context
+                    .Set<Question>()
+                    .Include(q => q.Answers)
+                    .AsTracking()
+                    .FirstOrDefaultAsync(q => q.QuestionId == questionId, ct);
+
+                if (updatedQuestion != null)
+                {
+                    updatedQuestion.QuestionText = questionToUpdate.Question;
+                    updatedQuestion.ImageUrl = questionToUpdate.ImageUrl.ToString();
+                    updatedQuestion.ThumbUrl = questionToUpdate.ThumbUrl.ToString();
+                    updatedQuestion.Answers = this.mapper.Map<IList<Answer>>(questionToUpdate.Choices);
+
+                    await this.context.SaveChangesAsync(ct);
+                }
+
+                await transaction.CommitAsync(ct);
+
+                return this.mapper.Map<QuestionModel>(updatedQuestion);
+            }
+        }
     }
 }

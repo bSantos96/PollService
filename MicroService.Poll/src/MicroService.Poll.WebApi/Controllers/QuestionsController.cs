@@ -7,9 +7,10 @@ namespace MicroService.Poll.WebApi.Controllers
     using AutoMapper;
     using Guards;
     using MicroService.Poll.Application.Services.Interfaces;
+    using MicroService.Poll.WebApi.Models;
     using MicroService.Poll.WebApi.Models.Questions;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
     using ApplicationModels = MicroService.Poll.Application.Models;
 
     /// <summary>
@@ -67,6 +68,48 @@ namespace MicroService.Poll.WebApi.Controllers
             var fetchedQuestion = await this.questionService.GetQuestionById(id, ct);
 
             return fetchedQuestion == null ? this.NotFound() : this.Ok(fetchedQuestion);
+        }
+
+        /// <summary>Creates a new question.</summary>
+        /// <param name="model">The question model.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/>.</param>
+        /// <returns>
+        /// <see cref="StatusCodes.Status200OK" />, if the question were successfully inserted.<br />
+        /// <see cref="StatusCodes.Status400BadRequest" />, if something wents wrong.
+        /// </returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> PostQuestions([FromBody] PostQuestionModel model, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(model, nameof(model));
+
+            ApplicationModels.SetQuestionModel questionToInsert = this.mapper.Map<ApplicationModels.SetQuestionModel>(model);
+            var insertedQuestion = await this.questionService.SetQuestion(questionToInsert, ct);
+
+            return this.Ok(insertedQuestion);
+        }
+
+        /// <summary>Updates a question.</summary>
+        /// <param name="id">The question id to update.</param>
+        /// <param name="model">The question model.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/>.</param>
+        /// <returns>
+        /// <see cref="StatusCodes.Status200OK" />, if the question were successfully inserted.<br />
+        /// <see cref="StatusCodes.Status400BadRequest" />, if something wents wrong.
+        /// </returns>
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> PutQuestions([FromRoute, BindRequired] int id, [FromBody] PutQuestionModel model, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(model, nameof(model));
+
+            ApplicationModels.UpdateQuestionModel questionToUpdate = this.mapper.Map<ApplicationModels.UpdateQuestionModel>(model);
+            var updatedQuestion = await this.questionService.PutQuestion(id, questionToUpdate, ct);
+
+            return this.Ok(updatedQuestion);
         }
     }
 }
