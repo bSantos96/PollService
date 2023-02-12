@@ -26,5 +26,13 @@ namespace MicroService.Poll.Domain.Repositories
         /// <param name="ct">The ct.</param>
         /// <returns>The filtered questions.</returns>
         Task<IReadOnlyList<QuestionModel>> GetFilteredQuestions(GetFilteredQuestionModel model, CancellationToken ct);
+
+        /// <summary>
+        /// Gets the question by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>The <see cref="QuestionModel"/>.</returns>
+        Task<QuestionModel> GetQuestionById(int id, CancellationToken ct);
     }
 }

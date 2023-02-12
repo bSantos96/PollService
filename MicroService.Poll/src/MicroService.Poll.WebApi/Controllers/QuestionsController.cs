@@ -46,15 +46,27 @@ namespace MicroService.Poll.WebApi.Controllers
         {
             Guard.ArgumentNotNull(questionsModel, nameof(questionsModel));
 
-            var questions = await this.questionService.GetQuestions(
-                new ApplicationModels.GetQuestionModel
-                {
-                    Limit = questionsModel.Limit,
-                    Offset = questionsModel.Offset,
-                    Filter = questionsModel.Filter,
-                }, ct);
+            var questionsFilter = this.mapper.Map<ApplicationModels.GetQuestionModel>(questionsModel);
 
-            return this.Ok(questions);
+            var fetchedQuestions = await this.questionService.GetQuestions(questionsFilter, ct);
+            return this.Ok(fetchedQuestions);
+        }
+
+        /// <summary>
+        /// Gets the question by id.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/>.</param>
+        /// <returns>Question.</returns>
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetQuestionsById([FromRoute] int id, CancellationToken ct = default)
+        {
+            var fetchedQuestion = await this.questionService.GetQuestionById(id, ct);
+
+            return fetchedQuestion == null ? this.NotFound() : this.Ok(fetchedQuestion);
         }
     }
 }
