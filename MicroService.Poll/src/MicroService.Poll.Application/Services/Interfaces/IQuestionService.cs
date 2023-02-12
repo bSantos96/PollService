@@ -19,5 +19,13 @@ namespace MicroService.Poll.Application.Services.Interfaces
         /// <param name="ct">The ct.</param>
         /// <returns>Questions and its Choices.</returns>
         Task<IReadOnlyList<DomainEntities.QuestionModel>> GetQuestions(GetQuestionModel model, CancellationToken ct);
+
+        /// <summary>
+        /// Gets the question by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>The <see cref="DomainEntities.QuestionModel"/>.</returns>
+        Task<DomainEntities.QuestionModel> GetQuestionById(int id, CancellationToken ct);
     }
 }
