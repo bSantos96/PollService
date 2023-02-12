@@ -20,6 +20,7 @@ namespace MicroService.Poll.Application.Mapping
         {
             this.CreateMap<ApplicationModels.GetQuestionModel, DomainEntities.GetQuestionModel>();
             this.CreateMap<ApplicationModels.GetQuestionModel, DomainEntities.GetFilteredQuestionModel>();
+            this.CreateMap<ApplicationModels.SetQuestionModel, DomainEntities.SetQuestionModel>();
         }
     }
 }
