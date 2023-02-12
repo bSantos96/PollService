@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\MicroService.Poll.Analyzers.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+   <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\stylecop.json" Visible="false" />
+  </ItemGroup>
+</Project>

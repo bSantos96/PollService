@@ -1,0 +1,4 @@
+﻿{
+  "Route": "/health",
+  "ResponseContentType": "application/json",
+}

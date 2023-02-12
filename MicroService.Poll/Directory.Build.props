@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Bruno Santos</Authors>
+    <Company>Bruno Santos</Company>
+    <Copyright>Bruno Santos</Copyright>
+    <LangVersion>11.0</LangVersion>
+  </PropertyGroup>
+</Project>
