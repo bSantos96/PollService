@@ -89,5 +89,27 @@ namespace MicroService.Poll.WebApi.Controllers
 
             return this.Ok(insertedQuestion);
         }
+
+        /// <summary>Updates a question.</summary>
+        /// <param name="id">The question id to update.</param>
+        /// <param name="model">The question model.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/>.</param>
+        /// <returns>
+        /// <see cref="StatusCodes.Status200OK" />, if the question were successfully inserted.<br />
+        /// <see cref="StatusCodes.Status400BadRequest" />, if something wents wrong.
+        /// </returns>
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> PutQuestions([FromRoute, BindRequired] int id, [FromBody] PutQuestionModel model, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(model, nameof(model));
+
+            ApplicationModels.UpdateQuestionModel questionToUpdate = this.mapper.Map<ApplicationModels.UpdateQuestionModel>(model);
+            var updatedQuestion = await this.questionService.PutQuestion(id, questionToUpdate, ct);
+
+            return this.Ok(updatedQuestion);
+        }
     }
 }
