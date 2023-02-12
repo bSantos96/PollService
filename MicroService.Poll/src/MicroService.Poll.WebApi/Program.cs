@@ -31,6 +31,9 @@ namespace MicroService.Poll.WebApi
                 builder.Services
                     .AddCustomAutoMapper(applicationAssemblies);
 
+                builder.Services
+                    .AddDbContext();
+
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
                 builder.Services.AddHealthChecks();
