@@ -18,8 +18,13 @@ namespace MicroService.Poll.Application.Mapping
         /// </summary>
         public QuestionProfile()
         {
+            this.CreateMap<ApplicationModels.SetQuestionModel, DomainEntities.SetQuestionModel>();
+            this.CreateMap<ApplicationModels.UpdateQuestionModel, DomainEntities.UpdateQuestionModel>();
             this.CreateMap<ApplicationModels.GetQuestionModel, DomainEntities.GetQuestionModel>();
             this.CreateMap<ApplicationModels.GetQuestionModel, DomainEntities.GetFilteredQuestionModel>();
+            this.CreateMap<ApplicationModels.QuestionChoiceModel, DomainEntities.QuestionChoiceModel>();
+
+            this.CreateMap<DomainEntities.QuestionModel, ApplicationModels.QuestionModel>();
         }
     }
 }

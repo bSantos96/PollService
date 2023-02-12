@@ -34,5 +34,22 @@ namespace MicroService.Poll.Domain.Repositories
         /// <param name="ct">The ct.</param>
         /// <returns>The <see cref="QuestionModel"/>.</returns>
         Task<QuestionModel> GetQuestionById(int id, CancellationToken ct);
+
+        /// <summary>
+        /// Sets the question.
+        /// </summary>
+        /// <param name="questionToInsert">The question to insert.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>The inserted question.</returns>
+        Task<QuestionModel> SetQuestion(SetQuestionModel questionToInsert, CancellationToken ct);
+
+        /// <summary>
+        /// Updates the question.
+        /// </summary>
+        /// <param name="questionId">The question identifier to update.</param>
+        /// <param name="questionToUpdate">The question to update.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>The updated question.</returns>
+        Task<QuestionModel> UpdateQuestion(int questionId, UpdateQuestionModel questionToUpdate, CancellationToken ct);
     }
 }

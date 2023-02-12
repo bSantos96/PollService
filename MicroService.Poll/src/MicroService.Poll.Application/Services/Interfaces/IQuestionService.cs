@@ -27,5 +27,22 @@ namespace MicroService.Poll.Application.Services.Interfaces
         /// <param name="ct">The ct.</param>
         /// <returns>The <see cref="DomainEntities.QuestionModel"/>.</returns>
         Task<DomainEntities.QuestionModel> GetQuestionById(int id, CancellationToken ct);
+
+        /// <summary>
+        /// Sets the question.
+        /// </summary>
+        /// <param name="questionToInsert">The question to insert.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+        Task<DomainEntities.QuestionModel> SetQuestion(SetQuestionModel questionToInsert, CancellationToken ct);
+
+        /// <summary>
+        /// Updates the question.
+        /// </summary>
+        /// <param name="id">The question identifier.</param>
+        /// <param name="questionToUpdate">The question to update.</param>
+        /// <param name="ct">The ct.</param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+        Task<DomainEntities.QuestionModel> PutQuestion(int id, UpdateQuestionModel questionToUpdate, CancellationToken ct);
     }
 }

@@ -5,6 +5,7 @@
 namespace MicroService.Poll.WebApi.Mapping
 {
     using AutoMapper;
+    using MicroService.Poll.WebApi.Models;
     using MicroService.Poll.WebApi.Models.Questions;
     using ApplicationModels = Application.Models;
 
@@ -19,6 +20,9 @@ namespace MicroService.Poll.WebApi.Mapping
         public QuestionProfile()
         {
             this.CreateMap<GetQuestionsModel, ApplicationModels.GetQuestionModel>();
+            this.CreateMap<PostQuestionModel, ApplicationModels.SetQuestionModel>();
+            this.CreateMap<PutChoiceModel, ApplicationModels.QuestionChoiceModel>();
+            this.CreateMap<PutQuestionModel, ApplicationModels.UpdateQuestionModel>();
         }
     }
 }
