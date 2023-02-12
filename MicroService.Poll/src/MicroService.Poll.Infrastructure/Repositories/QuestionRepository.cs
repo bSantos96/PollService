@@ -74,5 +74,23 @@ namespace MicroService.Poll.Infrastructure.Repositories
 
             return this.mapper.Map<QuestionModel>(questionById);
         }
+
+        /// <inheritdoc/>
+        public async Task<QuestionModel> SetQuestion(SetQuestionModel questionToInsert, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(questionToInsert, nameof(questionToInsert));
+
+            using (var transaction = await this.context.Database.BeginTransactionAsync(ct))
+            {
+                var insertedQuestion = this.mapper.Map<Question>(questionToInsert);
+
+                this.context.Set<Question>().Add(insertedQuestion);
+                await this.context.SaveChangesAsync(ct);
+
+                await transaction.CommitAsync(ct);
+
+                return this.mapper.Map<QuestionModel>(insertedQuestion);
+            }
+        }
     }
 }
