@@ -58,5 +58,15 @@ namespace MicroService.Poll.Application.Services
 
             return await this.questionRepository.SetQuestion(insert, ct);
         }
+
+        /// <inheritdoc/>
+        public async Task<DomainEntities.QuestionModel> PutQuestion(int id, ApplicationModels.UpdateQuestionModel questionToUpdate, CancellationToken ct)
+        {
+            Guard.ArgumentNotNull(questionToUpdate, nameof(questionToUpdate));
+
+            DomainEntities.UpdateQuestionModel update = this.mapper.Map<DomainEntities.UpdateQuestionModel>(questionToUpdate);
+
+            return await this.questionRepository.UpdateQuestion(id, update, ct);
+        }
     }
 }
