@@ -34,6 +34,14 @@ namespace MicroService.Poll.Infrastructure.Context
         public int Votes { get; set; }
 
         /// <summary>
+        /// Gets or sets the question id.
+        /// </summary>
+        /// <value>
+        /// The question id.
+        /// </value>
+        public int QuestionId { get; set; }
+
+        /// <summary>
         /// Gets or sets the question.
         /// </summary>
         /// <value>

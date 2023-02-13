@@ -7,7 +7,10 @@ namespace MicroService.Poll.WebApi
     using System.Reflection;
     using MicroService.Poll.Application;
     using MicroService.Poll.Infrastructure;
+    using MicroService.Poll.WebApi.Attributes;
     using MicroService.Poll.WebApi.Extensions;
+    using MicroService.Poll.WebApi.Options;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyModel;
 
     /// <summary>
@@ -28,11 +31,21 @@ namespace MicroService.Poll.WebApi
                     .AddControllers()
                     .AddCustomFluentValidation(applicationAssemblies);
 
+                builder.Services.Configure<ApiBehaviorOptions>(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                });
+
                 builder.Services
                     .AddCustomAutoMapper(applicationAssemblies);
 
                 builder.Services
                     .AddDbContext();
+
+                builder.Services
+                    .Configure<MailSettings>(
+                        AppSettingsExtensions
+                        .GetConfiguration("MailSettings.settings.json"));
 
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
