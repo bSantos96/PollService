@@ -1,0 +1,11 @@
+﻿// To test the /share endpoint, you can use a fake smtp server like https://ethereal.email/
+{
+  "DisplayName": "",
+  "From": "",
+  "UserName": "",
+  "Password": "",
+  "Host": "",
+  "Port": 587,
+  "UseSSL": false,
+  "UseStartTls": true
+}

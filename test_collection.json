@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "d273852b-c260-4d9c-9fdd-6c13b2035ea4",
+		"name": "PollsMicroservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "Questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7133/questions?limit=10&offset=0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7133",
+							"path": [
+								"questions"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "filter",
+									"value": "programming",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"question\": \"QuestionTest\",\r\n  \"imageUrl\": \"QuestionImage\",\r\n  \"thumbUrl\": \"QuestionThumb\",\r\n  \"choices\": [\r\n    \"Choice1\",\r\n    \"Choice2\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7133/questions",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7133",
+							"path": [
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Questions Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"[UPDATED] Favourite programming language?\",\r\n    \"imageUrl\": \"https://dummyimage.com/600x400/000/fff.png&text=question+1+updated+image+(600x400)\",\r\n    \"thumbUrl\": \"https://dummyimage.com/120x120/000/fff.png&text=question+1+updated+image+(120x120)\",\r\n    \"choices\": [\r\n        {\r\n            \"choice\": \"Swift\",\r\n            \"votes\": 1\r\n        },\r\n        {\r\n            \"choice\": \"Python\",\r\n            \"votes\": 2\r\n        },\r\n        {\r\n            \"choice\": \"Objective-C\",\r\n            \"votes\": 3\r\n        },\r\n        {\r\n            \"choice\": \"Ruby\",\r\n            \"votes\": 4\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7133/questions/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7133",
+							"path": [
+								"questions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetQuestionsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7133/questions/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7133",
+							"path": [
+								"questions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Share",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7133/Share?DestinationEmail=teste@teste.com&ContentUrl=teste.com",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7133",
+							"path": [
+								"Share"
+							],
+							"query": [
+								{
+									"key": "DestinationEmail",
+									"value": "teste@teste.com"
+								},
+								{
+									"key": "ContentUrl",
+									"value": "teste.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

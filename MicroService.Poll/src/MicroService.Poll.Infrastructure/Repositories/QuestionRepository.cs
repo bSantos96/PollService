@@ -111,7 +111,7 @@ namespace MicroService.Poll.Infrastructure.Repositories
                     updatedQuestion.QuestionText = questionToUpdate.Question;
                     updatedQuestion.ImageUrl = questionToUpdate.ImageUrl.ToString();
                     updatedQuestion.ThumbUrl = questionToUpdate.ThumbUrl.ToString();
-                    updatedQuestion.Answers = this.mapper.Map<IList<Answer>>(questionToUpdate.Choices);
+                    MapChoicesToAnswers(questionId, questionToUpdate.Choices, updatedQuestion.Answers);
 
                     await this.context.SaveChangesAsync(ct);
                 }
@@ -119,6 +119,18 @@ namespace MicroService.Poll.Infrastructure.Repositories
                 await transaction.CommitAsync(ct);
 
                 return this.mapper.Map<QuestionModel>(updatedQuestion);
+            }
+
+            static void MapChoicesToAnswers(int questionId, IEnumerable<QuestionChoiceModel> choices, ICollection<Answer> answers)
+            {
+                answers = choices
+                    .Select(c => new Answer
+                    {
+                        QuestionId = questionId,
+                        AnswerText = c.Choice,
+                        Votes = c.Votes,
+                    })
+                    .ToList();
             }
         }
     }
