@@ -7,6 +7,7 @@ namespace MicroService.Poll.WebApi.Controllers
     using AutoMapper;
     using Guards;
     using MicroService.Poll.Application.Services.Interfaces;
+    using MicroService.Poll.WebApi.Attributes;
     using MicroService.Poll.WebApi.Models;
     using MicroService.Poll.WebApi.Models.Questions;
     using Microsoft.AspNetCore.Mvc;
@@ -80,6 +81,7 @@ namespace MicroService.Poll.WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ValidateModelState(ErrorMessage = "Bad Request. All fields are mandatory.")]
         public async Task<IActionResult> PostQuestions([FromBody] PostQuestionModel model, CancellationToken ct)
         {
             Guard.ArgumentNotNull(model, nameof(model));
@@ -102,6 +104,7 @@ namespace MicroService.Poll.WebApi.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ValidateModelState(ErrorMessage = "Bad Request. All fields are mandatory.")]
         public async Task<IActionResult> PutQuestions([FromRoute, BindRequired] int id, [FromBody] PutQuestionModel model, CancellationToken ct)
         {
             Guard.ArgumentNotNull(model, nameof(model));

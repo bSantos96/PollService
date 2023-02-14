@@ -2,7 +2,7 @@
 // Copyright (c) Bruno Santos. All rights reserved.
 // </copyright>
 
-namespace MicroService.Poll.WebApi.Extensions
+namespace MicroService.Poll.Shared.Extensions
 {
     using Microsoft.Extensions.Configuration;
 
