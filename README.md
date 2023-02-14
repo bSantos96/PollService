@@ -8,4 +8,4 @@
 4. Open the Microservice.Poll.sln on Visual Studio, build and run.
 5. Now, you should be able to use the microservice.
 
-Feel free to contact me via email 😉
+Feel free to contact me via [LinkedIn](https://www.linkedin.com/in/bruno-santos-1b5699182/) 😉
