@@ -7,4 +7,5 @@
 3. To test the endpoints, I've attached a Postman collection that you can use.
 4. Open the Microservice.Poll.sln on Visual Studio, build and run.
 5. Now, you should be able to use the microservice.
+
 Feel free to contact me via email 😉
